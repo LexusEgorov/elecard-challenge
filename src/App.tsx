@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider, Button, Card } from 'react-bootstrap';
 
 function App() {
+  const id = [1,2,3,4,5,6];
+
+  const handleClick = (data: number) => alert(`Вы нажали на карточку #${data}`);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider
+      breakpoints={['xs', 'sm', 'md', 'xl']}
+    >
+      <div className="container row">
+        {
+          id.map((id) =>
+            <Card
+              style={{width: '300px', color: '#000'}}
+              key={id}
+            >
+              <Card.Title>Карточка #{id}</Card.Title>
+              <Card.Text>
+                Очень интересное (нет) описание карточки
+              </Card.Text>
+              <Button variant='info' onClick={() => handleClick(id)}>Тыцк</Button>
+            </Card>
+          )
+        }
+      </div>
+    </ThemeProvider>
   );
 }
 
