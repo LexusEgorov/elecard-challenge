@@ -1,6 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-
-const URL_API = 'http://contest.elecard.ru/frontend_data/';
+import { URL_API } from '../const';
 
 const REQUEST_TIMEOUT = 5000;
 

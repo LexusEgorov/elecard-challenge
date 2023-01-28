@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import CardsList from './components/view/cards-list/cards-list';
 import { useAppDispatch } from './hooks/hooks';
 import { fetchDataAction } from './store/api-actions';
 
@@ -10,7 +11,9 @@ function App() {
   }, [dispatch]);
 
   return (
-    <></>
+    <div className="container">
+      <CardsList />
+    </div>
   );
 }
 
