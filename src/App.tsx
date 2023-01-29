@@ -11,7 +11,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <CardsList />
     </div>
   );

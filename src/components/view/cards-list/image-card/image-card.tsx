@@ -5,7 +5,7 @@ function ImageCard() : JSX.Element {
   return(
     <Card 
       style={{width: '400px'}}
-      className="p-1 m-auto"
+      className="p-1 mb-3"
     >
       <Card.Img src={`${URL_API}${APIRoute.Test}`} />
       <Card.Body>
