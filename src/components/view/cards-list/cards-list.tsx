@@ -4,9 +4,9 @@ import ImageCard from './image-card/image-card';
 const CARD_WIDTH = 400;
 
 function CardsList() : JSX.Element {
+  const cards = [1,2,3,4,5,6,7,8,9];  
   const listRef = useRef<HTMLDivElement | null>(null);
   const [cardsPerRow, setCardsPerRow] = useState(1);
-  const cards = [1,2,3,4,5,6,7,8,9];
   const position = cardsPerRow === 1 ? 'center' : 'around';
 
   const handleResize = () => {

@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import Footer from './components/footer/footer';
+import Header from './components/header/header';
 import CardsList from './components/view/cards-list/cards-list';
 import { useAppDispatch } from './hooks/hooks';
 import { fetchDataAction } from './store/api-actions';
@@ -11,9 +13,11 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="container-fluid">
+    <>
+      <Header />
       <CardsList />
-    </div>
+      <Footer />
+    </>
   );
 }
 

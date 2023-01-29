@@ -1,0 +1,12 @@
+body{
+  padding-top: 120px;
+  padding-bottom: 114px;
+}
+
+.page-header{
+  top: 0;
+  position: fixed;
+  z-index: 100;
+  background-color: #ccdfa8;
+  color: #729137;
+}
