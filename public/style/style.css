@@ -41,3 +41,23 @@ body{
   color: #ffffff;
   background-color: #2e7b33;
 }
+
+.image-card{
+  position: relative;
+}
+
+.close-btn{
+  border: none;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 0;
+  font-weight: bold;
+}
+
+.close-btn:hover{
+  background-color: #d1d1d1;
+}

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { resetImages } from '../../../services/local-storage';
+import { fetchDataAction } from '../../../store/api-actions';
 import { getPageData } from '../../../store/app-data/selectors';
 import { setGridSize } from '../../../store/page-data/page-data';
 import ImageCard from './image-card/image-card';
@@ -15,6 +17,11 @@ function CardsList() : JSX.Element {
   const [columnsCount, setColumnsCount] = useState(1);
   const position = columnsCount === 1 ? 'center' : 'around';
   const cards = useAppSelector(getPageData(page ?? '1', columnsCount));  
+
+  const handleReset = () => {
+    resetImages();
+    dispatch(fetchDataAction());
+  }
 
   const handleResize = useCallback(() => {
     const containerWidth = listRef.current?.clientWidth ?? 0;
@@ -34,7 +41,12 @@ function CardsList() : JSX.Element {
 
   return (
     <>
-      <div className="text-center">{columnsCount}</div>
+      <button
+        className='reset-btn'
+        onClick={handleReset}
+      >
+        Вернуть как было
+      </button>
       <div className={`cards-list d-flex flex-row justify-content-${position} flex-wrap`} ref={listRef}>
         {
           cards.map(({id, filesize, image, category, timestamp}) => 

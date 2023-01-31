@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
+import { getClosedImages } from '../../services/local-storage';
 import { AppData } from '../../types';
 import { fetchDataAction } from '../api-actions';
 
@@ -12,24 +13,32 @@ const initialState : AppData = {
 export const appData = createSlice({
   name: NameSpace.AppData,
   initialState,
-  reducers: {},
+  reducers: {
+    removeItem: (state, action) => {
+      const deleteIndex = state.catalog.findIndex((image) => action.payload === image.image);
+      state.catalog.splice(deleteIndex, 1);
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchDataAction.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(fetchDataAction.fulfilled, (state, action) => {
+        const closedImages = getClosedImages();
         const catalogData = action.payload;
         const categories : Set<string> = new Set();
 
         let storeCatalogData = [];
         
         for(let i = catalogData.length - 1; i >= 0; i--){
-          categories.add(catalogData[i].category);
-          storeCatalogData.unshift({
-            ...catalogData[i],
-            id: i + 1,
-          })  
+          if(!closedImages.includes(catalogData[i].image)){
+            categories.add(catalogData[i].category);
+            storeCatalogData.unshift({
+              ...catalogData[i],
+              id: i + 1,
+            })  
+          }
         }
 
         state.catalog = storeCatalogData;
@@ -38,3 +47,5 @@ export const appData = createSlice({
       });
   },
 });
+
+export const {removeItem} = appData.actions;

@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect';
 import { NameSpace } from '../../const';
 import { CatalogStoreSchema, State } from '../../types';
 import { getFirstIndex, getRowsCount } from '../../utils/utils';
@@ -10,9 +11,10 @@ export const getCategories = (state: State) : string[] => state[NameSpace.AppDat
 
 export const getCatalogLength = (state: State) : number => state[NameSpace.AppData].catalog.length;
 
-export const getPageData = (page: string, columnsCount: number) => 
-  (state: State) => {
-    const rowsCount = getRowsCount(columnsCount); 
-    const firstIndex = getFirstIndex(page, columnsCount, rowsCount);
-    return state[NameSpace.AppData].catalog.slice(firstIndex, firstIndex + columnsCount * rowsCount);
-  }
+export const getPageData = (page: string, columnsCount: number) => createSelector([
+  getCatalog,
+], (catalog) => {
+  const rowsCount = getRowsCount(columnsCount); 
+  const firstIndex = getFirstIndex(page, columnsCount, rowsCount);
+  return catalog.slice(firstIndex, firstIndex + columnsCount * rowsCount);
+});

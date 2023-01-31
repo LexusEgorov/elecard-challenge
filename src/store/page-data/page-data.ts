@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { NameSpace } from '../../const';
+import { getClosedImages } from '../../services/local-storage';
 import { PageData } from '../../types';
 import { getPageTotalCount, getRowsCount } from '../../utils/utils';
 import { fetchDataAction } from '../api-actions';
@@ -23,13 +24,18 @@ export const pageData = createSlice({
       state.totalCount = columnsCount * state.rowsCount;
       state.pagesCount = getPageTotalCount(state.columnsCount, state.rowsCount, state.cardsCount);
     },
+    closeCard: (state) => {
+      state.cardsCount--;
+      state.pagesCount = getPageTotalCount(state.columnsCount, state.rowsCount, state.cardsCount);
+    }
   },
   extraReducers(builder) {
     builder.addCase(fetchDataAction.fulfilled, (state, action) => {
-      state.cardsCount = action.payload.length;
+      const closedCardsCount = getClosedImages().length;
+      state.cardsCount = action.payload.length - closedCardsCount;
       state.pagesCount = getPageTotalCount(state.columnsCount, state.rowsCount, state.cardsCount)
     });
   },
 });
 
-export const {setGridSize} = pageData.actions;
+export const {setGridSize, closeCard} = pageData.actions;
