@@ -8,3 +8,8 @@ export enum APIRoute {
 export enum NameSpace {
   AppData = 'APP_DATA',
 }
+
+export enum AppRoute {
+  Root = '/',
+  Page = '/:page',
+}

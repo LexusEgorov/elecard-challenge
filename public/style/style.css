@@ -17,3 +17,27 @@ body{
 .page-footer{
   bottom: 0;
 }
+
+.pagination{
+  align-self: center;
+  width: max-content;
+  margin-bottom: 10px;
+}
+
+.pagination-element{
+  text-align: center;
+  min-width: 24px;
+  padding: 5px;
+  text-decoration: none;
+  color: #2e7b33;
+}
+
+.pagination-element-disabled{
+  pointer-events: none;
+}
+
+.pagination-element-active{
+  pointer-events: none;
+  color: #ffffff;
+  background-color: #2e7b33;
+}
