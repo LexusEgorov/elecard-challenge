@@ -14,7 +14,7 @@ function Layout() : JSX.Element {
     <div className="d-flex flex-column">
       <Header />
       <Outlet />
-      <PagePagination currentPage={+page} pagesCount={100}/>
+      <PagePagination currentPage={+page} />
       <Footer />
     </div>
   )

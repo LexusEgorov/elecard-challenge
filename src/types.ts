@@ -11,6 +11,16 @@ export type CatalogElementSchema = {
 
 export type CatalogSchema = CatalogElementSchema[];
 
+export type CatalogElementStoreSchema = {
+  id: number,
+  image: string,
+  filesize: number,
+  timestamp: number,
+  category: string,
+}
+
+export type CatalogStoreSchema = CatalogElementStoreSchema[];
+
 /*Хранилище*/
 export type AppDispatch = typeof store.dispatch;
 export type State = ReturnType<typeof store.getState>;
@@ -19,7 +29,13 @@ export type Reducer = ReturnType<typeof rootReducer>;
 /*Слайсы*/
 export type AppData = {
   isLoading: boolean,
-  catalog: CatalogSchema,
-  currentPage: number,
+  catalog: CatalogStoreSchema,
   categories: string[],
+}
+
+export type PageData = {
+  rowsCount: number,
+  columnsCount: number,
+  totalCount: number,
+  pagesCount: number,
 }

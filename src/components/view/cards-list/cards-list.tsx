@@ -1,19 +1,27 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { getPageData } from '../../../store/app-data/selectors';
+import { setGridSize } from '../../../store/page-data/page-data';
 import ImageCard from './image-card/image-card';
 
 const CARD_WIDTH = 400;
 
 function CardsList() : JSX.Element {
-  const cards = [1,2,3,4,5,6,7,8,9];  
-  const listRef = useRef<HTMLDivElement | null>(null);
-  const [cardsPerRow, setCardsPerRow] = useState(1);
-  const position = cardsPerRow === 1 ? 'center' : 'around';
+  const dispatch = useAppDispatch();
 
-  const handleResize = () => {
+  const { page } = useParams();
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const [columnsCount, setColumnsCount] = useState(1);
+  const position = columnsCount === 1 ? 'center' : 'around';
+  const cards = useAppSelector(getPageData(page ?? '1', columnsCount));  
+
+  const handleResize = useCallback(() => {
     const containerWidth = listRef.current?.clientWidth ?? 0;
     const cardsCount = Math.floor(containerWidth / CARD_WIDTH);
-    setCardsPerRow(cardsCount);
-  };
+    setColumnsCount(cardsCount);
+    dispatch(setGridSize(cardsCount));
+  }, [dispatch]);
 
   useEffect(() => {
     if(!listRef){
@@ -22,14 +30,22 @@ function CardsList() : JSX.Element {
 
     handleResize();
     window.addEventListener('resize', handleResize);
-  }, [listRef]);
+  }, [handleResize, listRef]);
 
   return (
     <>
-      <div className="text-center">{cardsPerRow}</div>
+      <div className="text-center">{columnsCount}</div>
       <div className={`cards-list d-flex flex-row justify-content-${position} flex-wrap`} ref={listRef}>
         {
-          cards.map((card) => <ImageCard key={card}/>)
+          cards.map(({id, filesize, image, category, timestamp}) => 
+            <ImageCard
+              key={id}
+              filename={image}
+              size={filesize}
+              category={category}
+              date={timestamp}
+            />
+          )
         }
       </div>
     </>

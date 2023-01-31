@@ -6,7 +6,6 @@ import { fetchDataAction } from '../api-actions';
 const initialState : AppData = {
   isLoading: false,
   catalog: [],
-  currentPage: 0,
   categories: [],
 }
 
@@ -23,12 +22,17 @@ export const appData = createSlice({
         const catalogData = action.payload;
         const categories : Set<string> = new Set();
 
-        state.catalog = catalogData;
+        let storeCatalogData = [];
         
         for(let i = catalogData.length - 1; i >= 0; i--){
-          categories.add(catalogData[i].category);  
+          categories.add(catalogData[i].category);
+          storeCatalogData.unshift({
+            ...catalogData[i],
+            id: i + 1,
+          })  
         }
 
+        state.catalog = storeCatalogData;
         state.categories = Array.from(categories.values()).reverse();
         state.isLoading = false;
       });
