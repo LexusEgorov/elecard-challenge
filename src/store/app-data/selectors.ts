@@ -11,10 +11,12 @@ export const getCategories = (state: State) : string[] => state[NameSpace.AppDat
 
 export const getCatalogLength = (state: State) : number => state[NameSpace.AppData].catalog.length;
 
+export const getSortType = (state: State) : string => state[NameSpace.AppData].sort;
+
 export const getPageData = (page: string, columnsCount: number) => createSelector([
   getCatalog,
 ], (catalog) => {
   const rowsCount = getRowsCount(columnsCount); 
-  const firstIndex = getFirstIndex(page, columnsCount, rowsCount);
+  const firstIndex = getFirstIndex(page, columnsCount, rowsCount);  
   return catalog.slice(firstIndex, firstIndex + columnsCount * rowsCount);
 });

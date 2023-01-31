@@ -34,7 +34,7 @@ function ImageCard({filename, size, category, date} : ImageCardProps) : JSX.Elem
       >
         &times;
       </button>
-      <Card.Img src={`${URL_API}${filename}`} width={390} height={260}/>
+      <Card.Img src={`${URL_API}${category}/${filename}`} width={390} height={260}/>
       <Card.Body>
         <Card.Text>Filename: {filename}</Card.Text>
         <Card.Text>Size: {(size / BYTES_TO_KB).toFixed(2)} KB</Card.Text>

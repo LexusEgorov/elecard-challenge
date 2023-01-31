@@ -29,8 +29,10 @@ export type Reducer = ReturnType<typeof rootReducer>;
 /*Слайсы*/
 export type AppData = {
   isLoading: boolean,
+  catalogUnsorted: CatalogStoreSchema,
   catalog: CatalogStoreSchema,
   categories: string[],
+  sort: string,
 }
 
 export type PageData = {

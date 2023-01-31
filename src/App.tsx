@@ -1,14 +1,27 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/layout/layout';
-import CardsList from './components/view/cards-list/cards-list';
+import Loader from './components/loader/loader';
+import View from './components/view/view';
 import { AppRoute } from './const';
-import { useAppDispatch } from './hooks/hooks';
+import { useAppDispatch, useAppSelector } from './hooks/hooks';
 import { fetchDataAction } from './store/api-actions';
+import { getIsLoading } from './store/app-data/selectors';
 
 function App() {
-  const dispatch = useAppDispatch();
-    
+  const dispatch = useAppDispatch();  
+
+  const isLoading = useAppSelector(getIsLoading);
+  const [delayedLoadingStatus, setDelayedLoadingStatus] = useState(true);
+
+  useEffect(() => {
+    if(isLoading){
+      setTimeout(() => {
+        setDelayedLoadingStatus(false);
+      }, 1000);
+    }
+  }, [isLoading]);
+
   useEffect(() => {
     dispatch(fetchDataAction());
   }, [dispatch]);
@@ -17,7 +30,11 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Root} element={<Layout />}>
-          <Route path={AppRoute.Page} element={<CardsList />}/>
+          <Route path={AppRoute.Page} element={
+            delayedLoadingStatus ?
+              <Loader /> : 
+              <View />
+          }/>
         </Route>
       </Routes>
     </BrowserRouter>

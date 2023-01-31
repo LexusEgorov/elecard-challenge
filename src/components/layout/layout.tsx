@@ -3,11 +3,11 @@ import { useAppSelector } from '../../hooks/hooks';
 import { getPagesCount } from '../../store/page-data/selectors';
 import Footer from '../footer/footer';
 import Header from '../header/header';
-import PagePagination from '../ui-kit/pagination/pagination';
 
 function Layout() : JSX.Element {
   const page = Number(useParams().page);
   const pagesCount = useAppSelector(getPagesCount);
+  
 
   if(!page || page < 1){
     return <Navigate to='/1' />;
@@ -21,10 +21,6 @@ function Layout() : JSX.Element {
     <div className="d-flex flex-column">
       <Header />
       <Outlet />
-      <PagePagination
-        pagesCount={pagesCount}
-        currentPage={page}
-      />
       <Footer />
     </div>
   )

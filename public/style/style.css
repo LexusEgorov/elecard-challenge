@@ -58,6 +58,21 @@ body{
   font-weight: bold;
 }
 
-.close-btn:hover{
+.close-btn:hover,
+.reset-btn:hover{
   background-color: #d1d1d1;
+}
+
+.reset-btn{
+  border: none;
+  margin-bottom: 30px;
+  width: 300px;
+  align-self: center;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.controls{
+  width: max-content;
+  align-self: center;
 }

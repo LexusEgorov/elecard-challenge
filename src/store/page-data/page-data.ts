@@ -18,7 +18,7 @@ export const pageData = createSlice({
   initialState,
   reducers: {
     setGridSize: (state, action) => {
-      const columnsCount = action.payload
+      const columnsCount = action.payload > 0 ? action.payload : 1; 
       state.columnsCount = columnsCount;
       state.rowsCount = getRowsCount(columnsCount);
       state.totalCount = columnsCount * state.rowsCount;
