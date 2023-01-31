@@ -9,6 +9,7 @@ const initialState : PageData = {
   rowsCount: 1,
   totalCount: 1,
   pagesCount: 1,
+  cardsCount: 1,
 }
 
 export const pageData = createSlice({
@@ -20,11 +21,13 @@ export const pageData = createSlice({
       state.columnsCount = columnsCount;
       state.rowsCount = getRowsCount(columnsCount);
       state.totalCount = columnsCount * state.rowsCount;
+      state.pagesCount = getPageTotalCount(state.columnsCount, state.rowsCount, state.cardsCount);
     },
   },
   extraReducers(builder) {
     builder.addCase(fetchDataAction.fulfilled, (state, action) => {
-      state.pagesCount = getPageTotalCount(state.columnsCount, state.rowsCount, action.payload.length)
+      state.cardsCount = action.payload.length;
+      state.pagesCount = getPageTotalCount(state.columnsCount, state.rowsCount, state.cardsCount)
     });
   },
 });

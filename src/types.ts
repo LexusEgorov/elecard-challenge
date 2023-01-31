@@ -38,4 +38,5 @@ export type PageData = {
   columnsCount: number,
   totalCount: number,
   pagesCount: number,
+  cardsCount: number,
 }

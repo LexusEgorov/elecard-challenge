@@ -1,13 +1,11 @@
-import { useAppSelector } from '../../../hooks/hooks';
-import { getPagesCount } from '../../../store/page-data/selectors';
 import PaginationElement from './pagination-element/pagination-element';
 
 type PaginationProps = {
+  pagesCount: number,
   currentPage: number,
 }
 
-function Pagination({currentPage} : PaginationProps) : JSX.Element {
-  const pagesCount = useAppSelector(getPagesCount);
+function Pagination({pagesCount, currentPage} : PaginationProps) : JSX.Element {
   const pages = [];
 
   for(let page = currentPage - 2; page < currentPage + 3; page++){
