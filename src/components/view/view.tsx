@@ -28,6 +28,7 @@ function View() : JSX.Element {
 
   const handleReset = () => {
     resetImages();
+    setViewMode(ViewMode.Cards);
     dispatch(fetchDataAction());
   }
 
