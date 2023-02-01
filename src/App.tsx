@@ -17,10 +17,8 @@ function App() {
   useEffect(() => {
     if(isLoading){
       setTimeout(() => {
-        setDelayedLoadingStatus(false);
+        setDelayedLoadingStatus(!isLoading);
       }, 2000);
-    } else {
-      setDelayedLoadingStatus(true)
     }
   }, [isLoading]);
 

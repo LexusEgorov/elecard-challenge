@@ -5,20 +5,26 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { resetImages } from '../../services/local-storage';
 import { fetchDataAction } from '../../store/api-actions';
 import { setSort } from '../../store/app-data/app-data';
-import { getSortType } from '../../store/app-data/selectors';
+import { getSortType, getTreeData } from '../../store/app-data/selectors';
 import { getPagesCount } from '../../store/page-data/selectors';
 import { firstLetterCapitalize } from '../../utils/utils';
+import Modal from '../modal/modal';
 import Pagination from '../ui-kit/pagination/pagination';
 import CardsList from './cards-list/cards-list';
 import Tree from './tree/tree';
 
 function View() : JSX.Element {
   const dispatch = useAppDispatch();
-  const pagesCount = useAppSelector(getPagesCount);
   const page = Number(useParams().page);
-  const [viewMode, setViewMode] = useState(ViewMode.Cards); 
-  const currentSort = useAppSelector(getSortType);
   const sortTypes = Object.values(SortType);
+  
+  const pagesCount = useAppSelector(getPagesCount);
+  const currentSort = useAppSelector(getSortType);
+  const treeData = useAppSelector(getTreeData);
+  
+  const [viewMode, setViewMode] = useState(ViewMode.Cards); 
+  const [imgUrl, setImgUrl] = useState('');
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   const handleReset = () => {
     resetImages();
@@ -77,15 +83,12 @@ function View() : JSX.Element {
               <label htmlFor={ViewMode.Tree}>Tree</label>
             </div>
           </div>
-          {
-            viewMode === ViewMode.Cards &&
-              <button
-                className='reset-btn'
-                onClick={handleReset}
-              >
-                Вернуть как было
-              </button>
-          }
+            <button
+              className='reset-btn'
+              onClick={handleReset}
+            >
+              Вернуть как было
+            </button>
         </div>
         {
           viewMode === ViewMode.Cards ? (
@@ -96,7 +99,12 @@ function View() : JSX.Element {
                 currentPage={page}
               />
             </>
-          ) : <Tree />
+          ) : (
+            <>
+              <Tree treeData={treeData} setImg={setImgUrl} modalToggler={setIsModalOpened}/>
+              <Modal imgUrl={imgUrl} onClose={setIsModalOpened} isOpened={isModalOpened}/>
+            </>
+          )
         }
       </div>
     </>

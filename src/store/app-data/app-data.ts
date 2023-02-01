@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, SortType } from '../../const';
 import { getClosedImages } from '../../services/local-storage';
 import { AppData } from '../../types';
+import { getTree } from '../../utils/utils';
 import { fetchDataAction } from '../api-actions';
 
 const initialState : AppData = {

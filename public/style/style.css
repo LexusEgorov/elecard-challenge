@@ -182,3 +182,55 @@ body{
     transform: rotate(360deg);
   }
 }
+
+.tree,
+.tree ul,
+.tree li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tree ul{
+  margin-left: 15px;
+}
+
+.tree > li:not(:only-child), 
+.tree li li{
+  position: relative;
+  padding-left: 20px;
+}
+
+.tree li:not(:last-child){
+  border-left: 1px solid #ccc;
+}
+
+.tree li li::before,
+.tree > li:not(:only-child)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1.1em;
+  height: .7em;
+  border-bottom: 1px solid #ccc;
+}
+
+.tree li:last-child::before{
+  width: calc(1.1em - 1px);
+  border-left: 1px solid #ccc;
+}
+
+.tree-toggler{
+  width: 15px;
+  height: 15px;
+  border: 1px solid #000000;
+  cursor: pointer;
+  padding-bottom: 4px;
+  margin-right: 5px;
+}
+
+.modal-image{
+  position: absolute;
+  z-index: 10000;
+}

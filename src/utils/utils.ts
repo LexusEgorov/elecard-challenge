@@ -1,3 +1,5 @@
+import { CatalogStoreSchema } from '../types';
+
 export const getRowsCount = (columnsCount : number) : number => {
   if(columnsCount >= 4){
     return 3;
@@ -18,3 +20,20 @@ export const firstLetterCapitalize = (word : string) : string => {
   const lowerCase = word.toLowerCase();
   return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1);
 }
+
+export const getTree = (data : CatalogStoreSchema, categories : string[]) => {
+  const tree = [];
+  for(const category of categories){
+    tree.push({
+      id: category,
+      value: data.filter((image) => image.category === category)
+        .map(({id, image}) => ({
+          id: id,
+          image: image,
+          category: category,
+        })),
+    });
+  }
+
+  return [{id: 'Tree', value: tree}];
+};

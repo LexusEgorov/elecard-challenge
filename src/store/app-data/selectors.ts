@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { NameSpace } from '../../const';
 import { CatalogStoreSchema, State } from '../../types';
-import { getFirstIndex, getRowsCount } from '../../utils/utils';
+import { getFirstIndex, getRowsCount, getTree } from '../../utils/utils';
 
 export const getIsLoading = (state: State) : boolean => state[NameSpace.AppData].isLoading;
 
@@ -12,6 +12,11 @@ export const getCategories = (state: State) : string[] => state[NameSpace.AppDat
 export const getCatalogLength = (state: State) : number => state[NameSpace.AppData].catalog.length;
 
 export const getSortType = (state: State) : string => state[NameSpace.AppData].sort;
+
+export const getTreeData = createSelector([
+  getCatalog,
+  getCategories,
+], (catalog, categories) => getTree(catalog, categories));
 
 export const getPageData = (page: string, columnsCount: number) => createSelector([
   getCatalog,
