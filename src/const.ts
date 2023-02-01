@@ -1,4 +1,4 @@
-export const URL_API = 'https://contest.elecard.ru/frontend_data/';
+export const URL_API = 'http://contest.elecard.ru/frontend_data/';
 
 export enum APIRoute {
   Catalog = 'catalog.json',
