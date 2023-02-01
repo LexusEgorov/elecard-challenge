@@ -11,14 +11,16 @@ function CardsList() : JSX.Element {
   const dispatch = useAppDispatch();
 
   const { page } = useParams();
-  const listRef = useRef<HTMLDivElement | null>(null);
   const [columnsCount, setColumnsCount] = useState(1);
+  const listRef = useRef<HTMLDivElement | null>(null);
+
   const position = columnsCount === 1 ? 'center' : 'around';
   const cards = useAppSelector(getPageData(page ?? '1', columnsCount));  
 
   const handleResize = useCallback(() => {
     const containerWidth = listRef.current?.clientWidth ?? 0;
     const cardsCount = Math.floor(containerWidth / CARD_WIDTH);
+
     setColumnsCount(cardsCount > 0 ? cardsCount : 1);
     dispatch(setGridSize(cardsCount));
   }, [dispatch]);

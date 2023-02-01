@@ -9,7 +9,7 @@ import { getSortType, getTreeData } from '../../store/app-data/selectors';
 import { getPagesCount } from '../../store/page-data/selectors';
 import { firstLetterCapitalize } from '../../utils/utils';
 import Modal from '../modal/modal';
-import Pagination from '../ui-kit/pagination/pagination';
+import Pagination from '../pagination/pagination';
 import CardsList from './cards-list/cards-list';
 import Tree from './tree/tree';
 
