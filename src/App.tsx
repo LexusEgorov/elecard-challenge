@@ -18,7 +18,9 @@ function App() {
     if(isLoading){
       setTimeout(() => {
         setDelayedLoadingStatus(false);
-      }, 1000);
+      }, 2000);
+    } else {
+      setDelayedLoadingStatus(true)
     }
   }, [isLoading]);
 

@@ -18,7 +18,7 @@ function Layout() : JSX.Element {
   }
 
   return (
-    <div className="d-flex flex-column">
+    <div className="d-flex flex-column align-items-center justify-content-center h-100">
       <Header />
       <Outlet />
       <Footer />
